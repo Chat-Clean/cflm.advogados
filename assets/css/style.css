@@ -135,8 +135,9 @@ html { -webkit-tap-highlight-color: transparent; }
 .topo__linha { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 
 .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ouro); }
-.marca__escudo { width: 34px; height: auto; flex: none; }
-.marca__nome { font-family: var(--display); font-size: 1.02rem; line-height: 1.08; }
+.marca__escudo { width: 36px; height: auto; flex: none; overflow: visible; }
+/* Contorno sutil em ouro: o escudo não some sobre o fundo escuro da barra */
+.marca__contorno { stroke: rgba(242, 208, 142, .5); stroke-width: 1.25; }
 
 .nav { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 34px); }
 .nav > a:not(.botao) {
@@ -413,6 +414,38 @@ html { -webkit-tap-highlight-color: transparent; }
 .socio details p { padding-bottom: 12px; font-size: .97rem; opacity: .9; }
 .socio:target .socio__foto { box-shadow: 0 0 0 3px var(--ouro); }
 
+/* Controles do carrossel (só aparecem no celular) */
+.socios__controles { display: none; }
+.socios__seta {
+  position: relative; width: 48px; height: 48px; flex: none; cursor: pointer;
+  background: none; color: var(--ouro); border: 0; padding: 0;
+  transition: opacity .25s, transform .25s var(--suave);
+}
+.socios__seta::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 13px; height: 13px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: translate(-70%, -50%) rotate(-45deg);
+}
+.socios__seta--volta::before { transform: translate(-30%, -50%) rotate(135deg); }
+.socios__seta { margin-right: -14px; }
+.socios__seta--volta { margin: 0 0 0 -14px; }
+.socios__seta:active { transform: translateX(4px); }
+.socios__seta--volta:active { transform: translateX(-4px); }
+.socios__seta:disabled { opacity: .28; cursor: default; }
+.socios__pontos { display: flex; align-items: center; }
+/* O botão é a área de toque; o ponto visível é o ::before */
+.socios__ponto {
+  display: grid; place-items: center; width: 30px; height: 44px; padding: 0;
+  background: none; border: 0; cursor: pointer;
+}
+.socios__ponto::before {
+  content: ""; width: 8px; height: 8px; border-radius: 4px;
+  background: rgba(242, 208, 142, .35);
+  transition: width .4s var(--suave), background-color .3s;
+}
+.socios__ponto[aria-current="true"] { width: 44px; }
+.socios__ponto[aria-current="true"]::before { width: 26px; background: var(--ouro); }
+
 /* ---------- Conteúdo ---------- */
 
 .pautas { border-top: 1.5px solid rgba(3, 60, 66, .22); }
@@ -566,8 +599,22 @@ html { -webkit-tap-highlight-color: transparent; }
   .valor:nth-child(3) h4 { color: var(--abissal); }
   .valor--base { background: var(--abissal); color: var(--marfim); border-radius: 0 0 50% 50% / 0 0 30% 30%; padding-right: clamp(28px, 4vw, 52px); padding-bottom: 72px; }
   .valor--base h4 { color: var(--ouro); }
-  .socios { grid-template-columns: 1fr; gap: 48px; }
-  .socio__foto { max-width: 320px; }
+  /* Sócios em carrossel: um por vez, com o próximo aparecendo na borda */
+  .socios {
+    display: flex; align-items: flex-start; gap: 18px;
+    margin-inline: calc(clamp(20px, 5vw, 56px) * -1);
+    padding-inline: clamp(20px, 5vw, 56px);
+    scroll-padding-inline: clamp(20px, 5vw, 56px);
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .socios::-webkit-scrollbar { display: none; }
+  .socios.arrastando { scroll-snap-type: none; cursor: grabbing; }
+  .socio { flex: 0 0 80%; scroll-snap-align: start; }
+  .js .socio[data-reveal] { opacity: 1; transform: none; transition: none; }
+  .socio:hover .socio__foto img { transform: none; }
+  .socios__controles { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; }
   .pautas li { grid-template-columns: 1fr; gap: 4px; }
   .heroi__acoes .botao { width: 100%; }
   .form .botao { justify-self: stretch; }

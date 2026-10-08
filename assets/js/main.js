@@ -206,5 +206,92 @@
     window.open(`https://wa.me/${numero}?text=${encodeURIComponent(linhas.join('\n'))}`, '_blank', 'noopener');
   });
 
+  // ---------- Sócios: carrossel no celular ----------
+  // A rolagem é nativa (scroll-snap), então arrastar com o dedo já funciona;
+  // aqui entram as setas, os marcadores C F L M e o arrasto com mouse.
+  const trilho = $('.socios');
+  if (trilho) {
+    const cartoes = $$('.socio', trilho);
+    const controles = document.createElement('div');
+    controles.className = 'socios__controles';
+    controles.innerHTML =
+      '<button class="socios__seta socios__seta--volta" type="button" aria-label="Sócio anterior"></button>' +
+      '<div class="socios__pontos"></div>' +
+      '<button class="socios__seta" type="button" aria-label="Próximo sócio"></button>';
+    const [setaVolta, pontosBox, setaVai] = controles.children;
+    const pontos = cartoes.map((cartao) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'socios__ponto';
+      b.setAttribute('aria-label', `Ver ${$('h3', cartao).textContent}`);
+      pontosBox.append(b);
+      return b;
+    });
+    trilho.after(controles);
+
+    let atual = -1;
+    const irPara = (i) => {
+      const alvo = cartoes[Math.max(0, Math.min(cartoes.length - 1, i))];
+      const recuo = parseFloat(getComputedStyle(trilho).scrollPaddingLeft) || 0;
+      trilho.scrollTo({ left: alvo.offsetLeft - trilho.offsetLeft - recuo, behavior: semMovimento ? 'auto' : 'smooth' });
+    };
+    const marcar = () => {
+      // o cartão ativo é o que está mais perto do centro do trilho
+      const meio = trilho.getBoundingClientRect().left + trilho.clientWidth / 2;
+      let perto = 0, menor = Infinity;
+      cartoes.forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - meio);
+        if (d < menor) { menor = d; perto = i; }
+      });
+      // nas pontas vale a posição da rolagem (o último cartão encosta à direita)
+      if (trilho.scrollLeft <= 2) perto = 0;
+      else if (trilho.scrollLeft >= trilho.scrollWidth - trilho.clientWidth - 2) perto = cartoes.length - 1;
+      if (perto === atual) return;
+      atual = perto;
+      pontos.forEach((p, i) => { if (i === atual) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); });
+      setaVolta.disabled = atual === 0;
+      setaVai.disabled = atual === cartoes.length - 1;
+    };
+
+    let quadroTrilho = false;
+    trilho.addEventListener('scroll', () => {
+      if (quadroTrilho) return;
+      quadroTrilho = true;
+      requestAnimationFrame(() => { quadroTrilho = false; marcar(); });
+    }, { passive: true });
+    window.addEventListener('resize', marcar);
+    setaVolta.addEventListener('click', () => irPara(atual - 1));
+    setaVai.addEventListener('click', () => irPara(atual + 1));
+    pontos.forEach((p, i) => p.addEventListener('click', () => irPara(i)));
+    marcar();
+
+    // Arrasto com mouse (no toque, o navegador já cuida)
+    let arrasto = null;
+    trilho.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || trilho.scrollWidth <= trilho.clientWidth) return;
+      arrasto = { x: e.clientX, inicio: trilho.scrollLeft, moveu: false };
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!arrasto) return;
+      const dx = e.clientX - arrasto.x;
+      if (!arrasto.moveu && Math.abs(dx) < 6) return;
+      arrasto.moveu = true;
+      trilho.classList.add('arrastando');
+      trilho.scrollLeft = arrasto.inicio - dx;
+    });
+    window.addEventListener('pointerup', () => {
+      if (!arrasto) return;
+      const moveu = arrasto.moveu;
+      arrasto = null;
+      if (!moveu) return;
+      marcar();
+      trilho.classList.remove('arrastando');
+      irPara(atual);
+      // o clique que encerra o arrasto não deve abrir "Ver formação"
+      trilho.addEventListener('click', (ev) => { ev.preventDefault(); ev.stopPropagation(); }, { capture: true, once: true });
+    });
+  }
+
   $('#ano').textContent = new Date().getFullYear();
 })();
