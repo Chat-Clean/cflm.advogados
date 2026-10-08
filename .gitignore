@@ -1,0 +1,7 @@
+# Ferramentas locais do Claude Code (não fazem parte do site)
+.claude/
+skills-lock.json
+
+# Sistema
+.DS_Store
+Thumbs.db
