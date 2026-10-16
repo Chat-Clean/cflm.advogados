@@ -5,14 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CFLM Advogados</title>
   <meta name="description" content="Escritório de advocacia em Natal/RN com atuação integrada em Direito Previdenciário, Civil, Trabalhista, Administrativo, Empresarial, Penal, Tributário e Registral.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#033C42">
   <link rel="canonical" href="https://cflm.adv.br/">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="CFLM Advogados">
+  <meta property="og:url" content="https://cflm.adv.br/">
   <meta property="og:title" content="Capuxú, Fiuza, Lima & Marinho — Sociedade de Advogados">
   <meta property="og:description" content="Advocacia integrada em defesa do cliente. Natal/RN.">
-  <meta property="og:image" content="assets/img/og.jpg">
+  <meta property="og:image" content="https://cflm.adv.br/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="CFLM Advogados — Capuxú, Fiuza, Lima & Marinho Sociedade de Advogados">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Capuxú, Fiuza, Lima & Marinho — Sociedade de Advogados">
+  <meta name="twitter:description" content="Advocacia integrada em defesa do cliente. Natal/RN.">
+  <meta name="twitter:image" content="https://cflm.adv.br/assets/img/og.jpg">
 
   <link rel="icon" type="image/png" href="assets/img/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -27,24 +38,98 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LegalService",
-    "name": "Capuxú, Fiuza, Lima & Marinho Sociedade de Advogados",
-    "alternateName": "CFLM Advogados",
-    "legalName": "Marinho & Fiuza - Advogados Associados",
-    "taxID": "34.922.490/0001-03",
-    "url": "https://cflm.adv.br/",
-    "image": "https://cflm.adv.br/assets/img/og.jpg",
-    "logo": "https://cflm.adv.br/assets/img/logo-cflm-512.png",
-    "sameAs": ["https://www.instagram.com/cflm.advogados/"],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Avenida Campos Sales, 901, Sala 712, 7º andar, Manhattan Business",
-      "addressLocality": "Natal",
-      "addressRegion": "RN",
-      "postalCode": "59020-300",
-      "addressCountry": "BR"
-    },
-    "areaServed": "Rio Grande do Norte"
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://cflm.adv.br/#escritorio",
+        "name": "Capuxú, Fiuza, Lima & Marinho Sociedade de Advogados",
+        "alternateName": "CFLM Advogados",
+        "legalName": "Marinho & Fiuza - Advogados Associados",
+        "taxID": "34.922.490/0001-03",
+        "description": "Escritório de advocacia em Natal/RN com atuação integrada em Direito Previdenciário, Civil, Trabalhista, Administrativo, Empresarial, Penal, Tributário e Registral.",
+        "url": "https://cflm.adv.br/",
+        "image": "https://cflm.adv.br/assets/img/og.jpg",
+        "logo": "https://cflm.adv.br/assets/img/logo-cflm-512.png",
+        "telephone": "+55 84 99836-0118",
+        "email": "cflm@cflmadvogados.com",
+        "sameAs": ["https://www.instagram.com/cflm.advogados/"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Avenida Campos Sales, 901, Sala 712, 7º andar, Manhattan Business, Tirol",
+          "addressLocality": "Natal",
+          "addressRegion": "RN",
+          "postalCode": "59020-300",
+          "addressCountry": "BR"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Natal" },
+          { "@type": "AdministrativeArea", "name": "Região Metropolitana de Natal" },
+          { "@type": "AdministrativeArea", "name": "Seridó" },
+          { "@type": "State", "name": "Rio Grande do Norte" }
+        ],
+        "knowsAbout": [
+          "Direito Previdenciário", "Aposentadoria", "Benefício por incapacidade", "Revisão de benefícios do INSS",
+          "Direito Civil", "Direito de Família", "Sucessões", "Direito do Consumidor", "Condomínios",
+          "Direito Trabalhista", "Direito Administrativo", "Servidor público",
+          "Direito Empresarial", "Recuperação judicial", "Direito Penal", "Tribunal do Júri",
+          "Direito Tributário", "Direito Registral e Notarial", "Usucapião extrajudicial", "Regularização de imóveis"
+        ],
+        "founder": [
+          { "@id": "https://cflm.adv.br/#socio-capuxu" },
+          { "@id": "https://cflm.adv.br/#socio-fiuza" },
+          { "@id": "https://cflm.adv.br/#socio-lima" },
+          { "@id": "https://cflm.adv.br/#socio-marinho" }
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://cflm.adv.br/#socio-capuxu",
+        "name": "Miquerinos de Medeiros Capuxú",
+        "jobTitle": "Advogado, sócio — OAB/RN 10.078",
+        "image": "https://cflm.adv.br/assets/img/miquerinos-capuxu.jpg",
+        "knowsAbout": ["Direito Previdenciário", "Aposentadoria", "Benefício por incapacidade"],
+        "alumniOf": "Universidade Potiguar",
+        "worksFor": { "@id": "https://cflm.adv.br/#escritorio" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://cflm.adv.br/#socio-fiuza",
+        "name": "José Luciano Fiuza Rodrigues",
+        "jobTitle": "Advogado, sócio — OAB/RN 11.060",
+        "image": "https://cflm.adv.br/assets/img/luciano-fiuza.jpg",
+        "knowsAbout": ["Direito Administrativo", "Servidor público", "Fazenda Pública", "Ciências Penais"],
+        "alumniOf": "Universidade Potiguar",
+        "worksFor": { "@id": "https://cflm.adv.br/#escritorio" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://cflm.adv.br/#socio-lima",
+        "name": "Francisco Washington Lima da Silva",
+        "jobTitle": "Advogado, sócio — OAB/RN 14.087",
+        "image": "https://cflm.adv.br/assets/img/washington-lima.jpg",
+        "knowsAbout": ["Direito do Trabalho", "Direito Registral e Notarial", "Regularização de imóveis"],
+        "alumniOf": ["Universidade Potiguar", "Universidade Federal do Rio Grande do Norte"],
+        "worksFor": { "@id": "https://cflm.adv.br/#escritorio" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://cflm.adv.br/#socio-marinho",
+        "name": "Heitor Antunes Torres Marinho",
+        "jobTitle": "Advogado, sócio — OAB/RN 11.163",
+        "image": "https://cflm.adv.br/assets/img/heitor-marinho.jpg",
+        "knowsAbout": ["Direito Civil", "Direito do Consumidor", "Direito de Família", "Sucessões", "Servidor público"],
+        "alumniOf": ["Universidade Potiguar", "Universidad de Buenos Aires"],
+        "worksFor": { "@id": "https://cflm.adv.br/#escritorio" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://cflm.adv.br/#site",
+        "url": "https://cflm.adv.br/",
+        "name": "CFLM Advogados",
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "https://cflm.adv.br/#escritorio" }
+      }
+    ]
   }
   </script>
 </head>

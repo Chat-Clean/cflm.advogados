@@ -1,0 +1,5 @@
+# Todos os buscadores e assistentes de IA podem ler o site inteiro.
+User-agent: *
+Allow: /
+
+Sitemap: https://cflm.adv.br/sitemap.xml
